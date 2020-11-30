@@ -83,9 +83,10 @@ public class SisPaciente implements Serializable {
     @Size(max = 45)
     @Column(name = "usu_mod")
     private String usuMod;
+    
     @OneToMany(mappedBy = "idPaciente")
     private List<SisNotas> sisNotasList;
-
+    
     public SisPaciente() {
     }
 

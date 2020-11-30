@@ -8,10 +8,10 @@ package bo.digital.test.web.controllers;
 import bo.digital.test.model.entities.SisDoctores;
 import bo.digital.test.web.controllers.security.BugsyUtils;
 import bo.digital.test.model.entities.SisHospitales;
-import bo.digital.test.model.entities.SisPaciente;
+import bo.digital.test.model.entities.SisNotas;
 import bo.digital.test.model.interfaces.services.IDoctoresService;
 import bo.digital.test.model.interfaces.services.IHospitalesService;
-import bo.digital.test.model.interfaces.services.IPacienteService;
+import bo.digital.test.model.interfaces.services.INotasService;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -32,25 +32,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 
 @RequestMapping(path = "/bugsy")
-public class Pacientesweb {
+public class Notasweb {
 
     @Autowired
-    IPacienteService modelo;
+    INotasService modelo;
 
-    @GetMapping("/pacientes")
-    public List<SisPaciente> findAll() {
+    @GetMapping("/notas")
+    public List<SisNotas> findAll() {
         return modelo.listar();
     }
-
-    @GetMapping("/pacientesid")
-    public SisPaciente findAll(@RequestParam Integer id) {
+    @GetMapping("/notasid")
+    public SisNotas findAll(@RequestParam Integer id) {
         return modelo.listarId(id);
     }
 
-    @PostMapping("/pacientes")
-
-    public SisPaciente add(@RequestBody SisPaciente objeto) {
-        if (objeto.getIdPaciente() == null) {
+    @PostMapping("/notas")
+    
+    public SisNotas add(@RequestBody SisNotas objeto) {
+        if (objeto.getIdNotas() == null) {
             objeto.setFecCre(new Date());
             objeto.setUsuCre(BugsyUtils.getUser());
         } else {
@@ -60,8 +59,8 @@ public class Pacientesweb {
         return modelo.save(objeto);
     }
 
-    @DeleteMapping("/pacientes")
-    public Map<String, String> delete(SisPaciente objeto) {
+    @DeleteMapping("/notas")
+    public Map<String, String> delete(SisNotas objeto) {
         Map<String, String> resul = new HashMap< String, String>();
         modelo.delete(objeto);
         resul.put("resultado", "ok");

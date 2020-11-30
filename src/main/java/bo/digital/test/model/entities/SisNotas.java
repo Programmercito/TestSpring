@@ -5,6 +5,7 @@
  */
 package bo.digital.test.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -55,7 +56,7 @@ public class SisNotas implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Basic(optional = false)
-    
+
     @Column(name = "fec_cre")
     @Temporal(TemporalType.DATE)
     private Date fecCre;
@@ -63,16 +64,18 @@ public class SisNotas implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fecMod;
     @Basic(optional = false)
-    
+
     @Size(min = 1, max = 45)
     @Column(name = "usu_cre")
     private String usuCre;
     @Size(max = 45)
     @Column(name = "usu_mod")
     private String usuMod;
+    @JsonBackReference
     @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
     @ManyToOne
     private SisPaciente idPaciente;
+    private Integer paciente;
 
     public SisNotas() {
     }
@@ -175,5 +178,22 @@ public class SisNotas implements Serializable {
     public String toString() {
         return "bo.digital.test.model.entities.SisNotas[ idNotas=" + idNotas + " ]";
     }
-    
+
+    /**
+     * @return the paciente
+     */
+    public Integer getPaciente() {
+        paciente = this.getIdPaciente().getIdPaciente();
+        return paciente;
+    }
+
+    /**
+     * @param paciente the paciente to set
+     */
+    public void setPaciente(Integer paciente) {
+        SisPaciente doc = new SisPaciente();
+        doc.setIdPaciente(paciente);
+        this.setIdPaciente(doc);
+    }
+
 }

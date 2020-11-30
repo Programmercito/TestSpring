@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -40,7 +41,10 @@ public class Especialidadesweb {
     public List<SisEspecialidades> findAll() {
         return modelo.listar();
     }
-
+    @GetMapping("/especialidadesid")
+    public SisEspecialidades findAll(@RequestParam Integer id) {
+        return modelo.listarId(id);
+    }
     @PostMapping("/especialidades")
     
     public SisEspecialidades add(@RequestBody SisEspecialidades objeto) {

@@ -5,6 +5,7 @@
  */
 package bo.digital.test.web.controllers;
 
+import bo.digital.test.model.entities.SisDoctores;
 import bo.digital.test.web.controllers.security.BugsyUtils;
 import bo.digital.test.model.entities.SisHospitales;
 import bo.digital.test.model.interfaces.services.IHospitalesService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -30,15 +32,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class HospitalesWeb {
 
     @Autowired
-    IHospitalesService hospitales;
+    IHospitalesService modelo;
 
     @GetMapping("/hospitales")
     public List<SisHospitales> findAll() {
-        return hospitales.listar();
+        return modelo.listar();
+    }
+
+    @GetMapping("/hospitalesid")
+    public SisHospitales findAll(@RequestParam Integer id) {
+        return modelo.listarId(id);
     }
 
     @PostMapping("/hospitales")
-    
+
     public SisHospitales add(@RequestBody SisHospitales hospital) {
         if (hospital.getIdHospitales() == null) {
             hospital.setFecCre(new Date());
@@ -47,13 +54,13 @@ public class HospitalesWeb {
             hospital.setFecMod(new Date());
             hospital.setUsuMod(BugsyUtils.getUser());
         }
-        return hospitales.save(hospital);
+        return modelo.save(hospital);
     }
 
     @DeleteMapping("/hospitales")
     public Map<String, String> delete(SisHospitales hospital) {
         Map<String, String> resul = new HashMap< String, String>();
-        hospitales.delete(hospital);
+        modelo.delete(hospital);
         resul.put("resultado", "ok");
         return resul;
     }
