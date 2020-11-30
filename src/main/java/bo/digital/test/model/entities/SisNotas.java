@@ -73,10 +73,12 @@ public class SisNotas implements Serializable {
     @Size(max = 45)
     @Column(name = "usu_mod")
     private String usuMod;
+    
     @JsonBackReference
     @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
     @ManyToOne
     private SisPaciente idPaciente;
+    
     @JsonBackReference
     @JoinColumn(name = "id_doctor", referencedColumnName = "id_doctor")
     @ManyToOne
