@@ -53,6 +53,7 @@ public class SisEspecialidades implements Serializable {
     private Integer idEspecialidad;
     @Size(max = 45)
     @Column(name = "nombre")
+    @NotNull
     private String nombre;
     @Size(max = 450)
     @Column(name = "descripcion")

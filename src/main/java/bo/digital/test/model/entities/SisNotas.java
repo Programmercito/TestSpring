@@ -52,9 +52,12 @@ public class SisNotas implements Serializable {
     private Integer idNotas;
     @Size(max = 1000)
     @Column(name = "descripcion")
+    @NotNull
     private String descripcion;
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
+    @NotNull
+
     private Date fecha;
     @Basic(optional = false)
     @NotNull

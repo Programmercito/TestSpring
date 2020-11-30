@@ -56,15 +56,18 @@ public class SisDoctores implements Serializable {
     private Integer idDoctor;
     @Size(max = 45)
     @Column(name = "nombre")
+    @NotNull
     private String nombre;
     @Size(max = 45)
     @Column(name = "apellido")
+    @NotNull
     private String apellido;
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
     @Size(max = 450)
     @Column(name = "direccion")
+    @NotNull
     private String direccion;
     @Size(max = 450)
     @Column(name = "foto_de_perfil")
@@ -183,7 +186,6 @@ public class SisDoctores implements Serializable {
         this.usuMod = usuMod;
     }
 
-    
     public List<SisNotas> getSisNotasList() {
         return sisNotasList;
     }
@@ -192,7 +194,6 @@ public class SisDoctores implements Serializable {
         this.sisNotasList = sisNotasList;
     }
 
-   
     public List<SisEspecialidades> getSisEspecialidadesList() {
         return sisEspecialidadesList;
     }
@@ -225,5 +226,5 @@ public class SisDoctores implements Serializable {
     public String toString() {
         return "bo.digital.test.model.entities.SisDoctores[ idDoctor=" + idDoctor + " ]";
     }
-    
+
 }
