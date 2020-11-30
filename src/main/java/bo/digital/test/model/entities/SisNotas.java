@@ -49,9 +49,11 @@ public class SisNotas implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_notas")
     private Integer idNotas;
+    @NotNull
     @Size(max = 1000)
     @Column(name = "descripcion")
     private String descripcion;
+    @NotNull
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;

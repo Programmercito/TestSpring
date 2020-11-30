@@ -53,16 +53,21 @@ public class SisDoctores implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_doctor")
+    @NotNull
     private Integer idDoctor;
+    @NotNull
     @Size(max = 45)
     @Column(name = "nombre")
     private String nombre;
+    @NotNull
     @Size(max = 45)
     @Column(name = "apellido")
     private String apellido;
+    
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
+    @NotNull
     @Size(max = 450)
     @Column(name = "direccion")
     private String direccion;
@@ -70,15 +75,16 @@ public class SisDoctores implements Serializable {
     @Column(name = "foto_de_perfil")
     private String fotoDePerfil;
     @Basic(optional = false)
-
+    @NotNull
     @Column(name = "fec_cre")
     @Temporal(TemporalType.DATE)
     private Date fecCre;
+    
     @Column(name = "fec_mod")
     @Temporal(TemporalType.DATE)
     private Date fecMod;
     @Basic(optional = false)
-
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "usu_cre")
     private String usuCre;

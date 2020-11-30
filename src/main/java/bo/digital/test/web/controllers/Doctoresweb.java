@@ -66,4 +66,9 @@ public class Doctoresweb {
         return resul;
     }
 
+    @GetMapping("/doctoressearch")
+    public List<SisDoctores> findAllParams(@RequestParam Date fecha, @RequestParam String nombre, @RequestParam String apellido, @RequestParam int pagina) {
+        return modelo.buscaDoctores(fecha, nombre, apellido, pagina);
+    }
+
 }

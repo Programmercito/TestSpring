@@ -51,6 +51,7 @@ public class SisEspecialidades implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_especialidad")
     private Integer idEspecialidad;
+    @NotNull
     @Size(max = 45)
     @Column(name = "nombre")
     private String nombre;
@@ -213,6 +214,6 @@ public class SisEspecialidades implements Serializable {
     public void setDoctor(Integer doctor) {
         SisDoctores doc = new SisDoctores();
         doc.setIdDoctor(doctor);
-        this.setIdDoctor(doc); 
+        this.setIdDoctor(doc);
     }
 }
