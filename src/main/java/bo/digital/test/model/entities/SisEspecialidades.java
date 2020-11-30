@@ -5,11 +5,14 @@
  */
 package bo.digital.test.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +23,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 /**
  *
@@ -27,6 +32,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "sis_especialidades")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SisEspecialidades.findAll", query = "SELECT s FROM SisEspecialidades s"),
     @NamedQuery(name = "SisEspecialidades.findByIdEspecialidad", query = "SELECT s FROM SisEspecialidades s WHERE s.idEspecialidad = :idEspecialidad"),
@@ -41,8 +47,8 @@ public class SisEspecialidades implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id_especialidad")
     private Integer idEspecialidad;
     @Size(max = 45)
@@ -54,27 +60,40 @@ public class SisEspecialidades implements Serializable {
     @Size(max = 450)
     @Column(name = "avatar")
     private String avatar;
+    @Basic(optional = false)
+
     @Column(name = "fec_cre")
     @Temporal(TemporalType.DATE)
     private Date fecCre;
     @Column(name = "fec_mod")
     @Temporal(TemporalType.DATE)
     private Date fecMod;
-    @Size(max = 45)
+    @Basic(optional = false)
+
+    @Size(min = 1, max = 45)
     @Column(name = "usu_cre")
     private String usuCre;
     @Size(max = 45)
     @Column(name = "usu_mod")
     private String usuMod;
     @JoinColumn(name = "id_doctor", referencedColumnName = "id_doctor")
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(optional = false)
     private SisDoctores idDoctor;
+
+    private Integer doctor;
 
     public SisEspecialidades() {
     }
 
     public SisEspecialidades(Integer idEspecialidad) {
         this.idEspecialidad = idEspecialidad;
+    }
+
+    public SisEspecialidades(Integer idEspecialidad, Date fecCre, String usuCre) {
+        this.idEspecialidad = idEspecialidad;
+        this.fecCre = fecCre;
+        this.usuCre = usuCre;
     }
 
     public Integer getIdEspecialidad() {
@@ -141,14 +160,6 @@ public class SisEspecialidades implements Serializable {
         this.usuMod = usuMod;
     }
 
-    public SisDoctores getIdDoctor() {
-        return idDoctor;
-    }
-
-    public void setIdDoctor(SisDoctores idDoctor) {
-        this.idDoctor = idDoctor;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -171,7 +182,37 @@ public class SisEspecialidades implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.bugsy.SisEspecialidades[ idEspecialidad=" + idEspecialidad + " ]";
+        return "bo.digital.test.model.entities.SisEspecialidades[ idEspecialidad=" + idEspecialidad + " ]";
     }
-    
+
+    /**
+     * @return the idDoctorfk
+     */
+    public SisDoctores getIdDoctor() {
+        return idDoctor;
+    }
+
+    /**
+     * @param idDoctorfk the idDoctorfk to set
+     */
+    public void setIdDoctor(SisDoctores idDoctorfk) {
+        this.idDoctor = idDoctorfk;
+    }
+
+    /**
+     * @return the doctor
+     */
+    public Integer getDoctor() {
+        doctor = this.getIdDoctor().getIdDoctor();
+        return doctor;
+    }
+
+    /**
+     * @param doctor the doctor to set
+     */
+    public void setDoctor(Integer doctor) {
+        SisDoctores doc = new SisDoctores();
+        doc.setIdDoctor(doctor);
+        this.setIdDoctor(doc); 
+    }
 }

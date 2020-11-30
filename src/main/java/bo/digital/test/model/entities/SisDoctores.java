@@ -5,12 +5,16 @@
  */
 package bo.digital.test.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,6 +24,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,6 +33,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "sis_doctores")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SisDoctores.findAll", query = "SELECT s FROM SisDoctores s"),
     @NamedQuery(name = "SisDoctores.findByIdDoctor", query = "SELECT s FROM SisDoctores s WHERE s.idDoctor = :idDoctor"),
@@ -43,8 +50,8 @@ public class SisDoctores implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id_doctor")
     private Integer idDoctor;
     @Size(max = 45)
@@ -62,19 +69,24 @@ public class SisDoctores implements Serializable {
     @Size(max = 450)
     @Column(name = "foto_de_perfil")
     private String fotoDePerfil;
+    @Basic(optional = false)
+
     @Column(name = "fec_cre")
     @Temporal(TemporalType.DATE)
     private Date fecCre;
     @Column(name = "fec_mod")
     @Temporal(TemporalType.DATE)
     private Date fecMod;
-    @Size(max = 45)
+    @Basic(optional = false)
+
+    @Size(min = 1, max = 45)
     @Column(name = "usu_cre")
     private String usuCre;
     @Size(max = 45)
     @Column(name = "usu_mod")
     private String usuMod;
-    @OneToMany(mappedBy = "idDoctor")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDoctor")
     private List<SisEspecialidades> sisEspecialidadesList;
 
     public SisDoctores() {
@@ -82,6 +94,12 @@ public class SisDoctores implements Serializable {
 
     public SisDoctores(Integer idDoctor) {
         this.idDoctor = idDoctor;
+    }
+
+    public SisDoctores(Integer idDoctor, Date fecCre, String usuCre) {
+        this.idDoctor = idDoctor;
+        this.fecCre = fecCre;
+        this.usuCre = usuCre;
     }
 
     public Integer getIdDoctor() {
@@ -164,6 +182,7 @@ public class SisDoctores implements Serializable {
         this.usuMod = usuMod;
     }
 
+    @XmlTransient
     public List<SisEspecialidades> getSisEspecialidadesList() {
         return sisEspecialidadesList;
     }
@@ -194,7 +213,7 @@ public class SisDoctores implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.bugsy.SisDoctores[ idDoctor=" + idDoctor + " ]";
+        return "bo.digital.test.model.entities.SisDoctores[ idDoctor=" + idDoctor + " ]";
     }
-    
+
 }

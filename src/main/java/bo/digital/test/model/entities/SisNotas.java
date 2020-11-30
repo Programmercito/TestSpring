@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -27,6 +30,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "sis_notas")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SisNotas.findAll", query = "SELECT s FROM SisNotas s"),
     @NamedQuery(name = "SisNotas.findByIdNotas", query = "SELECT s FROM SisNotas s WHERE s.idNotas = :idNotas"),
@@ -34,13 +38,14 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "SisNotas.findByFecha", query = "SELECT s FROM SisNotas s WHERE s.fecha = :fecha"),
     @NamedQuery(name = "SisNotas.findByFecCre", query = "SELECT s FROM SisNotas s WHERE s.fecCre = :fecCre"),
     @NamedQuery(name = "SisNotas.findByFecMod", query = "SELECT s FROM SisNotas s WHERE s.fecMod = :fecMod"),
-    @NamedQuery(name = "SisNotas.findByUsuCre", query = "SELECT s FROM SisNotas s WHERE s.usuCre = :usuCre")})
+    @NamedQuery(name = "SisNotas.findByUsuCre", query = "SELECT s FROM SisNotas s WHERE s.usuCre = :usuCre"),
+    @NamedQuery(name = "SisNotas.findByUsuMod", query = "SELECT s FROM SisNotas s WHERE s.usuMod = :usuMod")})
 public class SisNotas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id_notas")
     private Integer idNotas;
     @Size(max = 1000)
@@ -49,15 +54,22 @@ public class SisNotas implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    @Basic(optional = false)
+    
     @Column(name = "fec_cre")
     @Temporal(TemporalType.DATE)
     private Date fecCre;
     @Column(name = "fec_mod")
     @Temporal(TemporalType.DATE)
     private Date fecMod;
-    @Size(max = 45)
+    @Basic(optional = false)
+    
+    @Size(min = 1, max = 45)
     @Column(name = "usu_cre")
     private String usuCre;
+    @Size(max = 45)
+    @Column(name = "usu_mod")
+    private String usuMod;
     @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
     @ManyToOne
     private SisPaciente idPaciente;
@@ -67,6 +79,12 @@ public class SisNotas implements Serializable {
 
     public SisNotas(Integer idNotas) {
         this.idNotas = idNotas;
+    }
+
+    public SisNotas(Integer idNotas, Date fecCre, String usuCre) {
+        this.idNotas = idNotas;
+        this.fecCre = fecCre;
+        this.usuCre = usuCre;
     }
 
     public Integer getIdNotas() {
@@ -117,6 +135,14 @@ public class SisNotas implements Serializable {
         this.usuCre = usuCre;
     }
 
+    public String getUsuMod() {
+        return usuMod;
+    }
+
+    public void setUsuMod(String usuMod) {
+        this.usuMod = usuMod;
+    }
+
     public SisPaciente getIdPaciente() {
         return idPaciente;
     }
@@ -147,7 +173,7 @@ public class SisNotas implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.bugsy.SisNotas[ idNotas=" + idNotas + " ]";
+        return "bo.digital.test.model.entities.SisNotas[ idNotas=" + idNotas + " ]";
     }
     
 }

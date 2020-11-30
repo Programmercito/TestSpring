@@ -5,8 +5,10 @@
  */
 package bo.digital.test.web.controllers;
 
+import bo.digital.test.model.entities.SisDoctores;
 import bo.digital.test.web.controllers.security.BugsyUtils;
 import bo.digital.test.model.entities.SisHospitales;
+import bo.digital.test.model.interfaces.services.IDoctoresService;
 import bo.digital.test.model.interfaces.services.IHospitalesService;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,33 +29,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 
 @RequestMapping(path = "/bugsy")
-public class HospitalesWeb {
+public class Doctoresweb {
 
     @Autowired
-    IHospitalesService hospitales;
+    IDoctoresService modelo;
 
-    @GetMapping("/hospitales")
-    public List<SisHospitales> findAll() {
-        return hospitales.listar();
+    @GetMapping("/doctores")
+    public List<SisDoctores> findAll() {
+        return modelo.listar();
     }
 
-    @PostMapping("/hospitales")
+    @PostMapping("/doctores")
     
-    public SisHospitales add(@RequestBody SisHospitales hospital) {
-        if (hospital.getIdHospitales() == null) {
-            hospital.setFecCre(new Date());
-            hospital.setUsuCre(BugsyUtils.getUser());
+    public SisDoctores add(@RequestBody SisDoctores objeto) {
+        if (objeto.getIdDoctor() == null) {
+            objeto.setFecCre(new Date());
+            objeto.setUsuCre(BugsyUtils.getUser());
         } else {
-            hospital.setFecMod(new Date());
-            hospital.setUsuMod(BugsyUtils.getUser());
+            objeto.setFecMod(new Date());
+            objeto.setUsuMod(BugsyUtils.getUser());
         }
-        return hospitales.save(hospital);
+        return modelo.save(objeto);
     }
 
-    @DeleteMapping("/hospitales")
-    public Map<String, String> delete(SisHospitales hospital) {
+    @DeleteMapping("/doctores")
+    public Map<String, String> delete(SisDoctores objeto) {
         Map<String, String> resul = new HashMap< String, String>();
-        hospitales.delete(hospital);
+        modelo.delete(objeto);
         resul.put("resultado", "ok");
         return resul;
     }

@@ -5,9 +5,13 @@
  */
 package bo.digital.test.web.controllers;
 
+import bo.digital.test.model.entities.SisDoctores;
 import bo.digital.test.web.controllers.security.BugsyUtils;
 import bo.digital.test.model.entities.SisHospitales;
+import bo.digital.test.model.entities.SisPaciente;
+import bo.digital.test.model.interfaces.services.IDoctoresService;
 import bo.digital.test.model.interfaces.services.IHospitalesService;
+import bo.digital.test.model.interfaces.services.IPacienteService;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,33 +31,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 
 @RequestMapping(path = "/bugsy")
-public class HospitalesWeb {
+public class Pacientesweb {
 
     @Autowired
-    IHospitalesService hospitales;
+    IPacienteService modelo;
 
-    @GetMapping("/hospitales")
-    public List<SisHospitales> findAll() {
-        return hospitales.listar();
+    @GetMapping("/pacientes")
+    public List<SisPaciente> findAll() {
+        return modelo.listar();
     }
 
-    @PostMapping("/hospitales")
+    @PostMapping("/pacientes")
     
-    public SisHospitales add(@RequestBody SisHospitales hospital) {
-        if (hospital.getIdHospitales() == null) {
-            hospital.setFecCre(new Date());
-            hospital.setUsuCre(BugsyUtils.getUser());
+    public SisPaciente add(@RequestBody SisPaciente objeto) {
+        if (objeto.getIdPaciente() == null) {
+            objeto.setFecCre(new Date());
+            objeto.setUsuCre(BugsyUtils.getUser());
         } else {
-            hospital.setFecMod(new Date());
-            hospital.setUsuMod(BugsyUtils.getUser());
+            objeto.setFecMod(new Date());
+            objeto.setUsuMod(BugsyUtils.getUser());
         }
-        return hospitales.save(hospital);
+        return modelo.save(objeto);
     }
 
-    @DeleteMapping("/hospitales")
-    public Map<String, String> delete(SisHospitales hospital) {
+    @DeleteMapping("/pacientes")
+    public Map<String, String> delete(SisPaciente objeto) {
         Map<String, String> resul = new HashMap< String, String>();
-        hospitales.delete(hospital);
+        modelo.delete(objeto);
         resul.put("resultado", "ok");
         return resul;
     }
