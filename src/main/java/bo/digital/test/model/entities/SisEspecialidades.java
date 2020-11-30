@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -79,6 +80,8 @@ public class SisEspecialidades implements Serializable {
     @ManyToOne(optional = false)
     @JsonBackReference
     private SisDoctores idDoctor;
+    @Transient
+    private Integer doctor;
 
     public SisEspecialidades() {
     }
@@ -190,4 +193,20 @@ public class SisEspecialidades implements Serializable {
         return "bo.digital.test.model.entities.SisEspecialidades[ idEspecialidad=" + idEspecialidad + " ]";
     }
 
+    /**
+     * @return the doctor
+     */
+    public Integer getDoctor() {
+        doctor = this.getIdDoctor().getIdDoctor();
+        return doctor;
+    }
+
+    /**
+     * @param doctor the doctor to set
+     */
+    public void setDoctor(Integer doctor) {
+        SisDoctores doc = new SisDoctores();
+        doc.setIdDoctor(doctor);
+        this.setIdDoctor(doc);
+    }
 }

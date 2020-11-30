@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -71,16 +72,20 @@ public class SisNotas implements Serializable {
     @Size(max = 45)
     @Column(name = "usu_mod")
     private String usuMod;
-    
+
     @JoinColumn(name = "id_doctor", referencedColumnName = "id_doctor")
     @ManyToOne(optional = false)
-    @JsonBackReference(value="user-movement")
+    @JsonBackReference(value = "user-movement")
     private SisDoctores idDoctor;
     @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
     @ManyToOne
     @JsonBackReference
-
     private SisPaciente idPaciente;
+
+    @Transient
+    private Integer doctor;
+    @Transient
+    private Integer paciente;
 
     public SisNotas() {
     }
@@ -192,4 +197,37 @@ public class SisNotas implements Serializable {
         return "bo.digital.test.model.entities.SisNotas[ idNotas=" + idNotas + " ]";
     }
 
+    /**
+     * @return the doctor
+     */
+    public Integer getDoctor() {
+        doctor = this.getIdDoctor().getIdDoctor();
+        return doctor;
+    }
+
+    /**
+     * @param doctor the doctor to set
+     */
+    public void setDoctor(Integer doctor) {
+        SisDoctores doc = new SisDoctores();
+        doc.setIdDoctor(doctor);
+        this.setIdDoctor(doc);
+    }
+
+    /**
+     * @return the doctor
+     */
+    public Integer getPaciente() {
+        paciente = this.getIdPaciente().getIdPaciente();
+        return paciente;
+    }
+
+    /**
+     * @param doctor the doctor to set
+     */
+    public void setPaciente(Integer paciente) {
+        SisPaciente doc = new SisPaciente();
+        doc.setIdPaciente(paciente);
+        this.setIdPaciente(doc);
+    }
 }
