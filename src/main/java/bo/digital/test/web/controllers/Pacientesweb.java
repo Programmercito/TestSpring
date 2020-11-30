@@ -12,6 +12,8 @@ import bo.digital.test.model.entities.SisPaciente;
 import bo.digital.test.model.interfaces.services.IDoctoresService;
 import bo.digital.test.model.interfaces.services.IHospitalesService;
 import bo.digital.test.model.interfaces.services.IPacienteService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -68,9 +70,11 @@ public class Pacientesweb {
         return resul;
     }
 
-    @GetMapping("/doctoressearch")
-    public List<SisPaciente> findAllParams(@RequestParam Date fecha, @RequestParam String nombre, @RequestParam String apellido, @RequestParam int pagina) {
-        return modelo.buscaPacientes(fecha, nombre, apellido, pagina);
+    @GetMapping("/pacientessearch")
+    public List<SisPaciente> findAllParams(@RequestParam(required = false) String fecha, @RequestParam(required = false) String nombre, @RequestParam(required = false) String apellido, @RequestParam int pagina) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        Date fechaa = sdf.parse(fecha);
+        return modelo.buscaPacientes(fechaa, nombre, apellido, pagina);
     }
 
 }

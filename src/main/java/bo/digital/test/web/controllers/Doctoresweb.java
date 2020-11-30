@@ -8,8 +8,11 @@ package bo.digital.test.web.controllers;
 import bo.digital.test.model.entities.SisDoctores;
 import bo.digital.test.web.controllers.security.BugsyUtils;
 import bo.digital.test.model.entities.SisHospitales;
+import bo.digital.test.model.entities.SisPaciente;
 import bo.digital.test.model.interfaces.services.IDoctoresService;
 import bo.digital.test.model.interfaces.services.IHospitalesService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -67,8 +70,10 @@ public class Doctoresweb {
     }
 
     @GetMapping("/doctoressearch")
-    public List<SisDoctores> findAllParams(@RequestParam Date fecha, @RequestParam String nombre, @RequestParam String apellido, @RequestParam int pagina) {
-        return modelo.buscaDoctores(fecha, nombre, apellido, pagina);
+    public List<SisDoctores> findAllParams(@RequestParam(required = false) String fecha, @RequestParam(required = false) String nombre, @RequestParam(required = false) String apellido, @RequestParam int pagina) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        Date fechaa = sdf.parse(fecha);
+        return modelo.buscaDoctores(fechaa, nombre, apellido, pagina);
     }
 
 }
