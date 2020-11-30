@@ -24,7 +24,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 /**
  *
@@ -51,7 +50,6 @@ public class SisEspecialidades implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_especialidad")
     private Integer idEspecialidad;
-    @NotNull
     @Size(max = 45)
     @Column(name = "nombre")
     private String nombre;
@@ -62,7 +60,7 @@ public class SisEspecialidades implements Serializable {
     @Column(name = "avatar")
     private String avatar;
     @Basic(optional = false)
-
+    @NotNull
     @Column(name = "fec_cre")
     @Temporal(TemporalType.DATE)
     private Date fecCre;
@@ -70,20 +68,18 @@ public class SisEspecialidades implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fecMod;
     @Basic(optional = false)
-
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "usu_cre")
     private String usuCre;
     @Size(max = 45)
     @Column(name = "usu_mod")
     private String usuMod;
-    
     @JoinColumn(name = "id_doctor", referencedColumnName = "id_doctor")
-    @JsonBackReference
     @ManyToOne(optional = false)
-    private SisDoctores idDoctor;
+    @JsonBackReference
 
-    private Integer doctor;
+    private SisDoctores idDoctor;
 
     public SisEspecialidades() {
     }
@@ -162,6 +158,14 @@ public class SisEspecialidades implements Serializable {
         this.usuMod = usuMod;
     }
 
+    public SisDoctores getIdDoctor() {
+        return idDoctor;
+    }
+
+    public void setIdDoctor(SisDoctores idDoctor) {
+        this.idDoctor = idDoctor;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -187,34 +191,4 @@ public class SisEspecialidades implements Serializable {
         return "bo.digital.test.model.entities.SisEspecialidades[ idEspecialidad=" + idEspecialidad + " ]";
     }
 
-    /**
-     * @return the idDoctorfk
-     */
-    public SisDoctores getIdDoctor() {
-        return idDoctor;
-    }
-
-    /**
-     * @param idDoctorfk the idDoctorfk to set
-     */
-    public void setIdDoctor(SisDoctores idDoctorfk) {
-        this.idDoctor = idDoctorfk;
-    }
-
-    /**
-     * @return the doctor
-     */
-    public Integer getDoctor() {
-        doctor = this.getIdDoctor().getIdDoctor();
-        return doctor;
-    }
-
-    /**
-     * @param doctor the doctor to set
-     */
-    public void setDoctor(Integer doctor) {
-        SisDoctores doc = new SisDoctores();
-        doc.setIdDoctor(doctor);
-        this.setIdDoctor(doc);
-    }
 }

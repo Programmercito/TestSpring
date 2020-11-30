@@ -50,7 +50,6 @@ public class Pacientesweb {
     }
 
     @PostMapping("/pacientes")
-
     public SisPaciente add(@RequestBody SisPaciente objeto) {
         if (objeto.getIdPaciente() == null) {
             objeto.setFecCre(new Date());
@@ -63,9 +62,12 @@ public class Pacientesweb {
     }
 
     @DeleteMapping("/pacientes")
-    public Map<String, String> delete(SisPaciente objeto) {
+    public Map<String, String> delete(@RequestBody SisPaciente objeto) {
         Map<String, String> resul = new HashMap< String, String>();
-        modelo.delete(objeto);
+        SisPaciente paciente=modelo.listarId(objeto.getIdPaciente());
+        
+        modelo.delete(paciente);
+      
         resul.put("resultado", "ok");
         return resul;
     }

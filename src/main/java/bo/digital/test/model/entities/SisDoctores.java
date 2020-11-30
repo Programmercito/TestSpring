@@ -5,7 +5,6 @@
  */
 package bo.digital.test.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -53,21 +52,16 @@ public class SisDoctores implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_doctor")
-    @NotNull
     private Integer idDoctor;
-    @NotNull
     @Size(max = 45)
     @Column(name = "nombre")
     private String nombre;
-    @NotNull
     @Size(max = 45)
     @Column(name = "apellido")
     private String apellido;
-    
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-    @NotNull
     @Size(max = 450)
     @Column(name = "direccion")
     private String direccion;
@@ -79,7 +73,6 @@ public class SisDoctores implements Serializable {
     @Column(name = "fec_cre")
     @Temporal(TemporalType.DATE)
     private Date fecCre;
-    
     @Column(name = "fec_mod")
     @Temporal(TemporalType.DATE)
     private Date fecMod;
@@ -91,12 +84,10 @@ public class SisDoctores implements Serializable {
     @Size(max = 45)
     @Column(name = "usu_mod")
     private String usuMod;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDoctor")
-    private List<SisEspecialidades> sisEspecialidadesList;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDoctor")
     private List<SisNotas> sisNotasList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDoctor")
+    private List<SisEspecialidades> sisEspecialidadesList;
 
     public SisDoctores() {
     }
@@ -192,6 +183,15 @@ public class SisDoctores implements Serializable {
     }
 
     @XmlTransient
+    public List<SisNotas> getSisNotasList() {
+        return sisNotasList;
+    }
+
+    public void setSisNotasList(List<SisNotas> sisNotasList) {
+        this.sisNotasList = sisNotasList;
+    }
+
+    @XmlTransient
     public List<SisEspecialidades> getSisEspecialidadesList() {
         return sisEspecialidadesList;
     }
@@ -224,19 +224,5 @@ public class SisDoctores implements Serializable {
     public String toString() {
         return "bo.digital.test.model.entities.SisDoctores[ idDoctor=" + idDoctor + " ]";
     }
-
-    /**
-     * @return the sisNotasList
-     */
-    public List<SisNotas> getSisNotasList() {
-        return sisNotasList;
-    }
-
-    /**
-     * @param sisNotasList the sisNotasList to set
-     */
-    public void setSisNotasList(List<SisNotas> sisNotasList) {
-        this.sisNotasList = sisNotasList;
-    }
-
+    
 }

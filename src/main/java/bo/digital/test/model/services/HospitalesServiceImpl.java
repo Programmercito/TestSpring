@@ -33,7 +33,7 @@ public class HospitalesServiceImpl implements IHospitalesService {
 
     @Override
     public void delete(SisHospitales objeto) {
-        data.delete(objeto);
+        data.deleteById(objeto.getIdHospitales());
     }
 
 }

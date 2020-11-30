@@ -34,7 +34,7 @@ public class NotasServiceImpl implements INotasService {
 
     @Override
     public void delete(SisNotas objeto) {
-        data.delete(objeto);
+        data.deleteById(objeto.getIdNotas());
     }
 
 }

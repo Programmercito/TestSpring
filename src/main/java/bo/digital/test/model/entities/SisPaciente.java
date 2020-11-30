@@ -52,20 +52,15 @@ public class SisPaciente implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_paciente")
     private Integer idPaciente;
-    @NotNull
-
     @Size(max = 45)
     @Column(name = "nombre")
     private String nombre;
-    @NotNull
     @Size(max = 45)
     @Column(name = "apellido")
     private String apellido;
-    @NotNull
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-    @NotNull
     @Size(max = 450)
     @Column(name = "direccion")
     private String direccion;
@@ -88,7 +83,6 @@ public class SisPaciente implements Serializable {
     @Size(max = 45)
     @Column(name = "usu_mod")
     private String usuMod;
-
     @OneToMany(mappedBy = "idPaciente")
     private List<SisNotas> sisNotasList;
 
@@ -218,5 +212,5 @@ public class SisPaciente implements Serializable {
     public String toString() {
         return "bo.digital.test.model.entities.SisPaciente[ idPaciente=" + idPaciente + " ]";
     }
-
+    
 }

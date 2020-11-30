@@ -60,7 +60,7 @@ public class Notasweb {
     }
 
     @DeleteMapping("/notas")
-    public Map<String, String> delete(SisNotas objeto) {
+    public Map<String, String> delete(@RequestBody SisNotas objeto) {
         Map<String, String> resul = new HashMap< String, String>();
         modelo.delete(objeto);
         resul.put("resultado", "ok");

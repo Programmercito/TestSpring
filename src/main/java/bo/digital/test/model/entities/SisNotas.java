@@ -49,16 +49,14 @@ public class SisNotas implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_notas")
     private Integer idNotas;
-    @NotNull
     @Size(max = 1000)
     @Column(name = "descripcion")
     private String descripcion;
-    @NotNull
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
     @Basic(optional = false)
-
+    @NotNull
     @Column(name = "fec_cre")
     @Temporal(TemporalType.DATE)
     private Date fecCre;
@@ -66,26 +64,22 @@ public class SisNotas implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fecMod;
     @Basic(optional = false)
-
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "usu_cre")
     private String usuCre;
     @Size(max = 45)
     @Column(name = "usu_mod")
     private String usuMod;
-    
+    @JoinColumn(name = "id_doctor", referencedColumnName = "id_doctor")
+    @ManyToOne(optional = false)
     @JsonBackReference
+    private SisDoctores idDoctor;
     @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
     @ManyToOne
-    private SisPaciente idPaciente;
-    
     @JsonBackReference
-    @JoinColumn(name = "id_doctor", referencedColumnName = "id_doctor")
-    @ManyToOne
-    private SisDoctores idDoctor;
 
-    private Integer paciente;
-    private Integer doctor;
+    private SisPaciente idPaciente;
 
     public SisNotas() {
     }
@@ -156,6 +150,14 @@ public class SisNotas implements Serializable {
         this.usuMod = usuMod;
     }
 
+    public SisDoctores getIdDoctor() {
+        return idDoctor;
+    }
+
+    public void setIdDoctor(SisDoctores idDoctor) {
+        this.idDoctor = idDoctor;
+    }
+
     public SisPaciente getIdPaciente() {
         return idPaciente;
     }
@@ -187,54 +189,6 @@ public class SisNotas implements Serializable {
     @Override
     public String toString() {
         return "bo.digital.test.model.entities.SisNotas[ idNotas=" + idNotas + " ]";
-    }
-
-    /**
-     * @return the paciente
-     */
-    public Integer getPaciente() {
-        paciente = this.getIdPaciente().getIdPaciente();
-        return paciente;
-    }
-
-    /**
-     * @param paciente the paciente to set
-     */
-    public void setPaciente(Integer paciente) {
-        SisPaciente doc = new SisPaciente();
-        doc.setIdPaciente(paciente);
-        this.setIdPaciente(doc);
-    }
-
-    /**
-     * @return the idDoctor
-     */
-    public SisDoctores getIdDoctor() {
-        return idDoctor;
-    }
-
-    /**
-     * @param idDoctor the idDoctor to set
-     */
-    public void setIdDoctor(SisDoctores idDoctor) {
-        this.idDoctor = idDoctor;
-    }
-
-    /**
-     * @return the doctor
-     */
-    public Integer getDoctor() {
-        doctor = this.getIdDoctor().getIdDoctor();
-        return doctor;
-    }
-
-    /**
-     * @param doctor the doctor to set
-     */
-    public void setDoctor(Integer doctor) {
-        SisDoctores doc = new SisDoctores();
-        doc.setIdDoctor(doctor);
-        this.setIdDoctor(doc);
     }
 
 }

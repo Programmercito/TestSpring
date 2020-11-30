@@ -49,7 +49,7 @@ public class SisHospitales implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     @Basic(optional = false)
-   
+    @NotNull
     @Column(name = "fec_cre")
     @Temporal(TemporalType.DATE)
     private Date fecCre;
@@ -57,7 +57,7 @@ public class SisHospitales implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fecMod;
     @Basic(optional = false)
- 
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "usu_cre")
     private String usuCre;

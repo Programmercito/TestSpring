@@ -59,7 +59,7 @@ public class Especialidadesweb {
     }
 
     @DeleteMapping("/especialidades")
-    public Map<String, String> delete(SisEspecialidades objeto) {
+    public Map<String, String> delete(@RequestBody SisEspecialidades objeto) {
         Map<String, String> resul = new HashMap< String, String>();
         modelo.delete(objeto);
         resul.put("resultado", "ok");
