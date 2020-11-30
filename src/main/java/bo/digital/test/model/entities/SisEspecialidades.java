@@ -77,8 +77,7 @@ public class SisEspecialidades implements Serializable {
     private String usuMod;
     @JoinColumn(name = "id_doctor", referencedColumnName = "id_doctor")
     @ManyToOne(optional = false)
-    @JsonBackReference(value="user-movement")
-
+    @JsonBackReference
     private SisDoctores idDoctor;
 
     public SisEspecialidades() {

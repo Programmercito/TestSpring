@@ -71,7 +71,10 @@ public class Doctoresweb {
     @GetMapping("/doctoressearch")
     public List<SisDoctores> findAllParams(@RequestParam(required = false) String fecha, @RequestParam(required = false) String nombre, @RequestParam(required = false) String apellido, @RequestParam int pagina) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-        Date fechaa = sdf.parse(fecha);
+        Date fechaa = null;
+        if (fecha != null) {
+            fechaa = sdf.parse(fecha);
+        }
         return modelo.buscaDoctores(fechaa, nombre, apellido, pagina);
     }
 

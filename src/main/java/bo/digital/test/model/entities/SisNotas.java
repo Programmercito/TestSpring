@@ -78,7 +78,7 @@ public class SisNotas implements Serializable {
     private SisDoctores idDoctor;
     @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
     @ManyToOne
-    @JsonBackReference(value="user-movement")
+    @JsonBackReference
 
     private SisPaciente idPaciente;
 
