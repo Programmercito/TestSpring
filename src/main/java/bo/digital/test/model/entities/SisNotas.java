@@ -75,7 +75,13 @@ public class SisNotas implements Serializable {
     @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
     @ManyToOne
     private SisPaciente idPaciente;
+    @JsonBackReference
+    @JoinColumn(name = "id_doctor", referencedColumnName = "id_doctor")
+    @ManyToOne
+    private SisDoctores idDoctor;
+
     private Integer paciente;
+    private Integer doctor;
 
     public SisNotas() {
     }
@@ -194,6 +200,37 @@ public class SisNotas implements Serializable {
         SisPaciente doc = new SisPaciente();
         doc.setIdPaciente(paciente);
         this.setIdPaciente(doc);
+    }
+
+    /**
+     * @return the idDoctor
+     */
+    public SisDoctores getIdDoctor() {
+        return idDoctor;
+    }
+
+    /**
+     * @param idDoctor the idDoctor to set
+     */
+    public void setIdDoctor(SisDoctores idDoctor) {
+        this.idDoctor = idDoctor;
+    }
+
+    /**
+     * @return the doctor
+     */
+    public Integer getDoctor() {
+        doctor = this.getIdDoctor().getIdDoctor();
+        return doctor;
+    }
+
+    /**
+     * @param doctor the doctor to set
+     */
+    public void setDoctor(Integer doctor) {
+        SisDoctores doc = new SisDoctores();
+        doc.setIdDoctor(doctor);
+        this.setIdDoctor(doc);
     }
 
 }

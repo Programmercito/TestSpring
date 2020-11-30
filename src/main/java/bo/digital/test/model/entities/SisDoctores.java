@@ -85,9 +85,12 @@ public class SisDoctores implements Serializable {
     @Size(max = 45)
     @Column(name = "usu_mod")
     private String usuMod;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDoctor")
     private List<SisEspecialidades> sisEspecialidadesList;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDoctor")
+    private List<SisNotas> sisNotasList;
 
     public SisDoctores() {
     }
@@ -214,6 +217,20 @@ public class SisDoctores implements Serializable {
     @Override
     public String toString() {
         return "bo.digital.test.model.entities.SisDoctores[ idDoctor=" + idDoctor + " ]";
+    }
+
+    /**
+     * @return the sisNotasList
+     */
+    public List<SisNotas> getSisNotasList() {
+        return sisNotasList;
+    }
+
+    /**
+     * @param sisNotasList the sisNotasList to set
+     */
+    public void setSisNotasList(List<SisNotas> sisNotasList) {
+        this.sisNotasList = sisNotasList;
     }
 
 }
