@@ -48,8 +48,7 @@ public class Doctoresweb {
         return modelo.listarId(id);
     }
 
-    @PostMapping("/doctores")
-
+    @PostMapping(path = "/doctores", consumes = "application/json;charset=UTF-8", produces = "application/json")
     public SisDoctores add(@RequestBody SisDoctores objeto) {
         if (objeto.getIdDoctor() == null) {
             objeto.setFecCre(new Date());

@@ -40,7 +40,7 @@ public class IPacienteServiceImpl implements IPacienteService {
 
     @Override
     public void delete(SisPaciente objeto) {
-        data.delete(objeto);
+        data.deleteById(objeto.getIdPaciente());
     }
 
     @Override

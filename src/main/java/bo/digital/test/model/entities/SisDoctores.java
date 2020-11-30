@@ -5,6 +5,7 @@
  */
 package bo.digital.test.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -182,7 +183,7 @@ public class SisDoctores implements Serializable {
         this.usuMod = usuMod;
     }
 
-    @XmlTransient
+    
     public List<SisNotas> getSisNotasList() {
         return sisNotasList;
     }
@@ -191,7 +192,7 @@ public class SisDoctores implements Serializable {
         this.sisNotasList = sisNotasList;
     }
 
-    @XmlTransient
+   
     public List<SisEspecialidades> getSisEspecialidadesList() {
         return sisEspecialidadesList;
     }

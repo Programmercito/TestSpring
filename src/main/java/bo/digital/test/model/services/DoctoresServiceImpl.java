@@ -37,7 +37,7 @@ public class DoctoresServiceImpl implements IDoctoresService {
 
     @Override
     public void delete(SisDoctores objeto) {
-        data.delete(objeto);
+        data.deleteById(objeto.getIdDoctor());
     }
 
     @Override

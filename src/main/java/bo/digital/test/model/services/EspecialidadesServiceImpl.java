@@ -32,7 +32,7 @@ public class EspecialidadesServiceImpl implements IEspecialidadesService {
 
     @Override
     public void delete(SisEspecialidades objeto) {
-        data.delete(objeto);
+        data.deleteById(objeto.getIdEspecialidad());
     }
 
 }
