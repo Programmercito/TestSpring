@@ -47,7 +47,7 @@ public class HospitalesWeb {
     @PostMapping("/hospitales")
 
     public SisHospitales add(@RequestBody SisHospitales hospital) {
-        if (hospital.getIdHospitales() == null) {
+        if ((hospital.getIdHospitales() == null) || (hospital.getIdHospitales()==0)) {
             hospital.setFecCre(new Date());
             hospital.setUsuCre(BugsyUtils.getUser());
         } else {

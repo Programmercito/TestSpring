@@ -51,7 +51,7 @@ public class Pacientesweb {
 
     @PostMapping("/pacientes")
     public SisPaciente add(@RequestBody SisPaciente objeto) {
-        if (objeto.getIdPaciente() == null) {
+        if ((objeto.getIdPaciente() == null) || (objeto.getIdPaciente() == 0)){
             objeto.setFecCre(new Date());
             objeto.setUsuCre(BugsyUtils.getUser());
         } else {

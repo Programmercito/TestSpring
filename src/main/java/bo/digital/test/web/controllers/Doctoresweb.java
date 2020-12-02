@@ -50,7 +50,7 @@ public class Doctoresweb {
 
     @PostMapping(path = "/doctores", consumes = "application/json;charset=UTF-8", produces = "application/json")
     public SisDoctores add(@RequestBody SisDoctores objeto) {
-        if (objeto.getIdDoctor() == null) {
+        if ((objeto.getIdDoctor() == null) || (objeto.getIdDoctor()==0)) {
             objeto.setFecCre(new Date());
             objeto.setUsuCre(BugsyUtils.getUser());
         } else {

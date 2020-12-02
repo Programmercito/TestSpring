@@ -16,4 +16,6 @@ public interface IEspecialidadesService {
     public SisEspecialidades save(SisEspecialidades objeto);
 
     public void delete(SisEspecialidades objeto);
+
+    public List<SisEspecialidades> listarDoctor(Integer doctor);
 }

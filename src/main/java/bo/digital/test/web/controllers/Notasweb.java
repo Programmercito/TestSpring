@@ -49,7 +49,7 @@ public class Notasweb {
     @PostMapping("/notas")
     
     public SisNotas add(@RequestBody SisNotas objeto) {
-        if (objeto.getIdNotas() == null) {
+        if ((objeto.getIdNotas() == null)||(objeto.getIdNotas() == 0)) {
             objeto.setFecCre(new Date());
             objeto.setUsuCre(BugsyUtils.getUser());
         } else {

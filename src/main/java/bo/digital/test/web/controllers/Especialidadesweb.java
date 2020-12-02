@@ -41,14 +41,21 @@ public class Especialidadesweb {
     public List<SisEspecialidades> findAll() {
         return modelo.listar();
     }
+
+    @GetMapping("/especialidadesdoc")
+    public List<SisEspecialidades> findAllDoctores(@RequestParam Integer id) {
+        return modelo.listarDoctor(id);
+    }
+
     @GetMapping("/especialidadesid")
     public SisEspecialidades findAll(@RequestParam Integer id) {
         return modelo.listarId(id);
     }
+
     @PostMapping("/especialidades")
-    
+
     public SisEspecialidades add(@RequestBody SisEspecialidades objeto) {
-        if (objeto.getIdDoctor() == null) {
+        if ((objeto.getIdEspecialidad() == null) || (objeto.getIdEspecialidad()==0)) {
             objeto.setFecCre(new Date());
             objeto.setUsuCre(BugsyUtils.getUser());
         } else {

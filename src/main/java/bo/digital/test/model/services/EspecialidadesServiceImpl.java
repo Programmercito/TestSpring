@@ -35,4 +35,9 @@ public class EspecialidadesServiceImpl implements IEspecialidadesService {
         data.deleteById(objeto.getIdEspecialidad());
     }
 
+    @Override
+    public List<SisEspecialidades> listarDoctor(Integer doctor) {
+        return data.listarDoctor(doctor);
+    }
+
 }
