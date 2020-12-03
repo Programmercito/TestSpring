@@ -50,7 +50,7 @@ public class Doctoresweb {
 
     @PostMapping(path = "/doctores", consumes = "application/json;charset=UTF-8", produces = "application/json")
     public SisDoctores add(@RequestBody SisDoctores objeto) {
-        if ((objeto.getIdDoctor() == null) || (objeto.getIdDoctor()==0)) {
+        if ((objeto.getIdDoctor() == null) || (objeto.getIdDoctor() == 0)) {
             objeto.setFecCre(new Date());
             objeto.setUsuCre(BugsyUtils.getUser());
         } else {
@@ -73,7 +73,11 @@ public class Doctoresweb {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
         Date fechaa = null;
         if (fecha != null) {
-            fechaa = sdf.parse(fecha);
+            try {
+                fechaa = sdf.parse(fecha);
+            } catch (Exception es) {
+                fecha = null;
+            }
         }
         return modelo.buscaDoctores(fechaa, nombre, apellido, pagina);
     }

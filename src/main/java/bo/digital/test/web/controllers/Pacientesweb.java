@@ -51,7 +51,7 @@ public class Pacientesweb {
 
     @PostMapping("/pacientes")
     public SisPaciente add(@RequestBody SisPaciente objeto) {
-        if ((objeto.getIdPaciente() == null) || (objeto.getIdPaciente() == 0)){
+        if ((objeto.getIdPaciente() == null) || (objeto.getIdPaciente() == 0)) {
             objeto.setFecCre(new Date());
             objeto.setUsuCre(BugsyUtils.getUser());
         } else {
@@ -64,10 +64,10 @@ public class Pacientesweb {
     @DeleteMapping("/pacientes")
     public Map<String, String> delete(@RequestBody SisPaciente objeto) {
         Map<String, String> resul = new HashMap< String, String>();
-        SisPaciente paciente=modelo.listarId(objeto.getIdPaciente());
-        
+        SisPaciente paciente = modelo.listarId(objeto.getIdPaciente());
+
         modelo.delete(paciente);
-      
+
         resul.put("resultado", "ok");
         return resul;
     }
@@ -77,7 +77,11 @@ public class Pacientesweb {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
         Date fechaa = null;
         if (fecha != null) {
-            fechaa = sdf.parse(fecha);
+            try {
+                fechaa = sdf.parse(fecha);
+            } catch (Exception es) {
+                fecha = null;
+            }
         }
         return modelo.buscaPacientes(fechaa, nombre, apellido, pagina);
     }
