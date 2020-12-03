@@ -41,15 +41,21 @@ public class Notasweb {
     public List<SisNotas> findAll() {
         return modelo.listar();
     }
+
     @GetMapping("/notasid")
     public SisNotas findAll(@RequestParam Integer id) {
         return modelo.listarId(id);
     }
 
+    @GetMapping("/notasbypaciente")
+    public List<SisNotas> findAllPaciente(@RequestParam Integer id) {
+        return modelo.listarbyPaciente(id);
+    }
+
     @PostMapping("/notas")
-    
+
     public SisNotas add(@RequestBody SisNotas objeto) {
-        if ((objeto.getIdNotas() == null)||(objeto.getIdNotas() == 0)) {
+        if ((objeto.getIdNotas() == null) || (objeto.getIdNotas() == 0)) {
             objeto.setFecCre(new Date());
             objeto.setUsuCre(BugsyUtils.getUser());
         } else {

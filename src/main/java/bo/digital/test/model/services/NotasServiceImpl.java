@@ -37,4 +37,9 @@ public class NotasServiceImpl implements INotasService {
         data.deleteById(objeto.getIdNotas());
     }
 
+    @Override
+    public List<SisNotas> listarbyPaciente(Integer paciente) {
+       return data.listarbyPaciente(paciente);
+    }
+
 }
